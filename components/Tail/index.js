@@ -1,9 +1,10 @@
 import React from "react";
 import { View } from "react-native";
 
-import Constants from "../../Constants";
+import { GRID_SIZE } from "../../constants";
 
-export default function Tail({ elements, position, size }) {
+export default function Tail({ elements, size }) {
+  console.log(elements);
   const tailList = elements.map((el, idx) => (
     <View
       key={idx}
@@ -20,8 +21,8 @@ export default function Tail({ elements, position, size }) {
   return (
     <View
       style={{
-        width: Constants.GRID_SIZE * size,
-        height: Constants.GRID_SIZE * size,
+        width: GRID_SIZE * size,
+        height: GRID_SIZE * size,
       }}
     >
       {tailList}

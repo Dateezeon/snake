@@ -1,4 +1,5 @@
-import Constants from "../Constants";
+import { GRID_SIZE } from "../constants";
+import { randomPositions } from "../helpers";
 
 export default function (entities, { events, dispatch }) {
   const head = entities.head;
@@ -35,9 +36,9 @@ export default function (entities, { events, dispatch }) {
     head.nextMove = head.updateFrequency;
     if (
       head.position[0] + head.xspeed < 0 ||
-      head.position[0] + head.xspeed >= Constants.GRID_SIZE ||
+      head.position[0] + head.xspeed >= GRID_SIZE ||
       head.position[1] + head.yspeed < 0 ||
-      head.position[1] + head.yspeed >= Constants.GRID_SIZE
+      head.position[1] + head.yspeed >= GRID_SIZE
     ) {
       dispatch("game-over");
     } else {
@@ -59,8 +60,8 @@ export default function (entities, { events, dispatch }) {
         ];
 
         food.position = [
-          Constants.randomPositions(0, Constants.GRID_SIZE - 1),
-          Constants.randomPositions(0, Constants.GRID_SIZE - 1),
+          randomPositions(0, GRID_SIZE - 1),
+          randomPositions(0, GRID_SIZE - 1),
         ];
       }
     }

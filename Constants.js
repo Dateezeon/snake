@@ -1,11 +1,3 @@
-import { Dimensions } from "react-native";
-
-export default {
-  MAX_WIDTH: Dimensions.get("screen").width,
-  MAX_HEIGHT: Dimensions.get("screen").height,
-  GRID_SIZE: 15,
-  CELL_SIZE: 20,
-  randomPositions: (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  },
-};
+export const GRID_SIZE = 15;
+export const CELL_SIZE = 20;
+export const SPEED = 10;

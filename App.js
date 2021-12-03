@@ -6,33 +6,34 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Food from "./components/Food";
 import Head from "./components/Head";
 import Tail from "./components/Tail";
-import Constants from "./Constants";
+import { GRID_SIZE, CELL_SIZE, SPEED } from "./constants";
+import { randomPositions } from "./helpers";
 import GameLoop from "./systems/GameLoop";
 
 export default function App() {
-  const BoardSize = Constants.GRID_SIZE * Constants.CELL_SIZE;
+  const BoardSize = GRID_SIZE * CELL_SIZE;
   const engine = useRef(null);
   const [isGameRunning, setIsGameRunning] = useState(true);
   const entities = {
     head: {
       position: [0, 0],
-      size: Constants.CELL_SIZE,
-      updateFrequency: 10,
-      nextMove: 10,
+      size: CELL_SIZE,
+      updateFrequency: SPEED,
+      nextMove: SPEED,
       xspeed: 0,
       yspeed: 0,
       renderer: <Head />,
     },
     food: {
       position: [
-        Constants.randomPositions(0, Constants.GRID_SIZE - 1),
-        Constants.randomPositions(0, Constants.GRID_SIZE - 1),
+        randomPositions(0, GRID_SIZE - 1),
+        randomPositions(0, GRID_SIZE - 1),
       ],
-      size: Constants.CELL_SIZE,
+      size: CELL_SIZE,
       renderer: <Food />,
     },
     tail: {
-      size: Constants.CELL_SIZE,
+      size: CELL_SIZE,
       elements: [],
       renderer: <Tail />,
     },
@@ -44,6 +45,22 @@ export default function App() {
 
   return (
     <View style={styles.canvas}>
+      {!isGameRunning && (
+        <TouchableOpacity onPress={resetGame}>
+          <Text
+            style={{
+              color: "white",
+              marginBottom: 15,
+              fontSize: 22,
+              padding: 10,
+              backgroundColor: "grey",
+              borderRadius: 10,
+            }}
+          >
+            Start New Game
+          </Text>
+        </TouchableOpacity>
+      )}
       <GameEngine
         ref={engine}
         style={{
@@ -91,22 +108,6 @@ export default function App() {
           </TouchableOpacity>
         </View>
       </View>
-      {!isGameRunning && (
-        <TouchableOpacity onPress={resetGame}>
-          <Text
-            style={{
-              color: "white",
-              marginTop: 15,
-              fontSize: 22,
-              padding: 10,
-              backgroundColor: "grey",
-              borderRadius: 10,
-            }}
-          >
-            Start New Game
-          </Text>
-        </TouchableOpacity>
-      )}
     </View>
   );
 }
